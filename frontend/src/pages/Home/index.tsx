@@ -32,7 +32,7 @@ export default function Home() {
   const createList = useCallback(async (title: string, description: string) => {
     try {
       const newTodo = await listRepository.create(title, description);
-      setLists((prev) => [new List(newTodo), ...prev]);
+      setLists((prev) => [...prev, new List(newTodo)]);
     } catch (e) {
       console.error(e);
     }
