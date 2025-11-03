@@ -54,6 +54,15 @@ export default function Home() {
     []
   );
 
+  const deleteList = useCallback(async (id: number) => {
+    try {
+      await listRepository.delete(id);
+      setLists((prev) => prev.filter((item) => String(item.id) !== String(id)));
+    } catch (e) {
+      console.error(e);
+    }
+  }, []);
+
   return (
     <div>
       <h4>todo</h4>
@@ -62,8 +71,8 @@ export default function Home() {
         lists={lists}
         loading={loading}
         error={error}
-        onRefresh={fetchLists}
         onEdit={(list) => setEditingList(list)}
+        onDelete={deleteList}
       />
 
       {editingList && (
