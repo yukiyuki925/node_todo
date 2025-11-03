@@ -10,4 +10,15 @@ export const listRepository = {
     const result = await api.post("/todo", { title, description });
     return new List(result.data);
   },
+  async show(id: number): Promise<List> {
+    const result = await api.get(`/todo/${id}`);
+    return new List(result.data);
+  },
+  async update(
+    id: number,
+    payload: { title?: string; description?: string }
+  ): Promise<List> {
+    const result = await api.put(`/todo/${id}`, payload);
+    return new List(result.data);
+  },
 };

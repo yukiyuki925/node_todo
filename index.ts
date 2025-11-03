@@ -38,10 +38,11 @@ app.get("/todo/:id", async (req, res) => {
 
 app.put("/todo/:id", async (req, res) => {
   const { id } = req.params;
-  const { title } = req.body;
+  const { title, description } = req.body;
   const todoRepository = AppDataSource.getRepository(Todo);
   const existingTodo = await todoRepository.findOneBy({ id: parseInt(id) });
   existingTodo!.title = title;
+  existingTodo!.description = description;
   const updatedTodo = await todoRepository.save(existingTodo!);
   res.json(updatedTodo);
 });

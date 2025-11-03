@@ -5,9 +5,16 @@ type Props = {
   loading: boolean;
   error: string | null;
   onRefresh: () => void;
+  onEdit: (list: List) => void;
 };
 
-export const TodoList = ({ lists, loading, error, onRefresh }: Props) => {
+export const TodoList = ({
+  lists,
+  loading,
+  error,
+  onRefresh,
+  onEdit,
+}: Props) => {
   if (loading) return <div>読み込み中…</div>;
   if (error) return <div style={{ color: "red" }}>{error}</div>;
 
@@ -19,6 +26,7 @@ export const TodoList = ({ lists, loading, error, onRefresh }: Props) => {
         {lists.map((l) => (
           <li key={l.id}>
             {l.title}：{l.description}
+            <button onClick={() => onEdit(l)}>編集</button>
           </li>
         ))}
       </ul>
